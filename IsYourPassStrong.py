@@ -5,36 +5,51 @@ def isMDPLong(MDP):
     message = ""
     if len(MDP) < 8:
         isLong = False
-        message = "Le mot de passe est très faible"
+        message = "Le mot de passe est très faible, il a seulement " + str(len(MDP)) + " caractères."
     elif 8 <= len(MDP) <= 12:
         isLong = False
-        message = "Le mot de passe est faible"
+        message = "Le mot de passe est faible, il a seulement " + str(len(MDP)) + " caractères."
     elif 12 < len(MDP) <= 16:
         isLong = True
-        message = " "
+        message = ""
     else:
         isLong = True
-        message = " "
+        message = ""
     
     return isLong, message
 
 def usedAllCharac(MDP):
     if re.findall(r"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])", MDP):
         hasAllCharac = True
-        messageC = " "
+        messageC = ""
     else:
         hasAllCharac = False
         messageC = "Le mot de passe doit contenir au moins un chiffre, une lettre en majuscule et minuscule"
     return messageC, hasAllCharac
+
+def isMDPobvious(MDP):
+    rockYouFile = open("./rockyou/rockyou.txt", "r", encoding="latin-1")
+    fileContent = rockYouFile.read()
+    if MDP in fileContent:
+        isObvious = True
+        messageO = "Le mot de passe est trop évident"
+    else:
+        isObvious = False
+        messageO = ""
+
+    rockYouFile.close()
+    return messageO, isObvious
     
 saisie = input("Veuillez saisir le mot de passe: ")
 isLong, message = isMDPLong(saisie)
 messageC, hasAllCharac = usedAllCharac(saisie)
+messageO, isObvious = isMDPobvious(saisie)
 
-while not isLong or not hasAllCharac:
-    print(message + "\n" + messageC)
+while not isLong or not hasAllCharac or not isObvious:
+    print(message + "\n" + messageC + "\n" + messageO)
     resaisie = input("Veuillez re-saisir le mot de passe: ")
     isLong, message = isMDPLong(resaisie)
     messageC, hasAllCharac = usedAllCharac(resaisie)
+    messageO, isObvious = isMDPobvious(resaisie)
 
-print(message + "\n" + messageC)
+print(message + "\n" + messageC + "\n" + messageO)
