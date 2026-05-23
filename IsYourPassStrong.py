@@ -19,7 +19,7 @@ def isMDPLong(MDP):
     return isLong, message
 
 def usedAllCharac(MDP):
-    if re.findall(r"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])", MDP):
+    if re.findall(r"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^ \n])", MDP):
         hasAllCharac = True
         messageC = ""
     else:
@@ -29,15 +29,17 @@ def usedAllCharac(MDP):
 
 def isMDPobvious(MDP):
     #rockYouFile = open("./rockyou/rockyou.txt", "r", encoding="latin-1")
-    #fileContent = rockYouFile.read().splitlines()
+    #fileContent = rockYouFile.read()
     mdpConnuesFile = open("./mdp_connues/mdp_connues.txt", "r", encoding="latin-1")
     fileContent = mdpConnuesFile.read().splitlines()
-    if MDP in fileContent:
-        isObvious = True
-        messageO = "Le mot de passe est trop évident"
-    else:
-        isObvious = False
-        messageO = ""
+    for word in fileContent:
+        if word in MDP:
+            isObvious = True
+            messageO = "Le mot de passe est trop évident"
+            break
+        else:
+            isObvious = False
+            messageO = ""
 
     mdpConnuesFile.close()
     return messageO, isObvious
