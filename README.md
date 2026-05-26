@@ -11,6 +11,6 @@ __Pour tester les commandes à partir de la CLI:<br>__
 - La commande permettant de vérifier si un mot de passe est robuste de manière interactive : ```python main.py verifier interactif```<br>
 - La commande permettant de générer un mot de passe robuste : ```python main.py generate```
 
-❗Il est aussi possible de tester la fonction qui permet de détecter si un mot de passe est évident, en téléchargeant le fichier _rockyou.txt.gz_ sur le site officiel. Dézippez-le et ajoutez dans le projet. Sinon utilisez la liste déjà définie.
+❗Il est aussi possible de tester la fonction qui permet de détecter si un mot de passe est facile à trouver, en téléchargeant le fichier _rockyou.txt.gz_ sur le site officiel. Dézippez-le et ajoutez dans le projet. Sinon utilisez la liste déjà définie.
 
 ℹ️ Ce projet est en cours de développement.
